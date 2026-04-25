@@ -1,6 +1,6 @@
 const CONFIG = {
   API_URL:
-    "https://script.google.com/macros/s/AKfycbwQG8Lc2mg58-t5E3vtpOgtu8-XSn0AdkcJhnne4S8ullVsWR-eSQtv52lwnm-8OcmX/exec",
+    "https://script.google.com/macros/s/AKfycbwo70dYMpPsQqXa3c5O0YcaeuUmA6ROS84AIQrgjCKicJxGwaGKF1rM9Q75gyEpd4_i/exec",
   MODE: "no-cors", // 🔥 WAJIB
 };
 
