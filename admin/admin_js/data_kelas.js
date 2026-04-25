@@ -3,8 +3,7 @@
 // ============================
 
 function loadKelas() {
-  fetch(CONFIG.API_URL + "?action=getKelas")
-    .then((res) => res.json())
+  apiGet("getKelas")
     .then((data) => {
       const tbody = document.querySelector("#tableKelas tbody");
       tbody.innerHTML = "";
@@ -18,7 +17,6 @@ function loadKelas() {
             <td>${row[4]}</td>
           </tr>
         `;
-
         tbody.innerHTML += tr;
       });
     })
@@ -48,30 +46,19 @@ function simpanKelas(btn) {
     wali: document.getElementById("kelasWali").value.trim(),
   };
 
-  fetch(CONFIG.API_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  })
-    .then((res) => res.json())
-    .then((res) => {
+  apiPost(data)
+    .then(() => {
+      // 🔥 karena no-cors → gak bisa baca response
       setLoading(btn, false);
+      showToast("Berhasil disimpan", "success");
 
-      if (res.status === "success") {
-        showToast("Berhasil disimpan", "success");
+      // reset form
+      document.getElementById("kelasNama").value = "";
+      document.getElementById("kelasJurusan").value = "";
+      document.getElementById("kelasTingkat").value = "";
+      document.getElementById("kelasWali").value = "";
 
-        // reset form 🔥
-        document.getElementById("kelasNama").value = "";
-        document.getElementById("kelasJurusan").value = "";
-        document.getElementById("kelasTingkat").value = "";
-        document.getElementById("kelasWali").value = "";
-
-        loadKelas();
-      } else {
-        showToast("Gagal simpan", "error");
-      }
+      loadKelas();
     })
     .catch((err) => {
       setLoading(btn, false);
